@@ -1,5 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.util.Locale
+import java.util.Calendar
+import java.text.SimpleDateFormat
 
 plugins {
     id("org.springframework.boot") version "2.5.3"
@@ -9,7 +11,7 @@ plugins {
 }
 
 group = "studio.hwjames"
-//version = "0.0.1-SNAPSHOT"
+version = "0.0.1-" + SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().time)
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
