@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "studio.hwjames"
-version = "0.0.1-SNAPSHOT"
+//version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -50,7 +50,7 @@ tasks.register("jvmProcessResources", Copy::class) {
     duplicatesStrategy = DuplicatesStrategy.WARN
 }
 
-tasks.withType<Jar> { duplicatesStrategy = DuplicatesStrategy.INHERIT }
+tasks.withType<Jar> { duplicatesStrategy = DuplicatesStrategy.WARN }
 // endregion
 
 tasks.register("buildReact", Exec::class) {
