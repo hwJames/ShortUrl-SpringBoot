@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class ShortUrlApiApplication
+class ShortUrlApplication
 
 fun main(args: Array<String>) {
-    runApplication<ShortUrlApiApplication>(*args)
+    runApplication<ShortUrlApplication>(*args)
 }

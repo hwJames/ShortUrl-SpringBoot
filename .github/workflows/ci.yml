@@ -1,0 +1,36 @@
+name: ci
+
+on:
+  push:
+    branches: [ main, develop ]
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:    
+      - 
+        name: Check out the repo
+        uses: actions/checkout@v2
+
+      - 
+        name: executing remote ssh commands using key (prod)
+        if: github.ref == 'refs/heads/main'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: cd ${{ secrets.PATH }} && ./depoly-prod.sh
+          
+      - 
+        name: executing remote ssh commands using key (dev)
+        if: github.ref == 'refs/heads/develop'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: cd ${{ secrets.PATH }} && ./depoly-dev.sh

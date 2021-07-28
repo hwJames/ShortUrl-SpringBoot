@@ -1,8 +1,41 @@
+# default
 server:
   port: 8090
 
+#spring:
+#  data:
+#    mongodb:
+#      uri: mongodb://127.0.0.1:27017
+#      database: Study-SpringBoot
+
+---
+server:
+  port: 8090
 spring:
-  data:
-    mongodb:
-      uri: mongodb://127.0.0.1:27017
-      database: Study-SpringBoot
+  config:
+    activate:
+      on-profile: dev1
+
+---
+server:
+  port: 8091
+spring:
+  config:
+    activate:
+      on-profile: dev2
+
+---
+server:
+  port: 8092
+spring:
+  config:
+    activate:
+      on-profile: prod1
+
+---
+server:
+  port: 8093
+spring:
+  config:
+    activate:
+      on-profile: prod2
