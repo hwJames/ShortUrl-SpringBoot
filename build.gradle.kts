@@ -52,7 +52,9 @@ tasks.register("jvmProcessResources", Copy::class) {
     duplicatesStrategy = DuplicatesStrategy.WARN
 }
 
-tasks.withType<Jar> { duplicatesStrategy = DuplicatesStrategy.WARN }
+tasks.withType<Jar> {
+    duplicatesStrategy = DuplicatesStrategy.WARN
+}
 // endregion
 
 tasks.register("buildReact", Exec::class) {
@@ -80,6 +82,10 @@ tasks.register("installReact", Exec::class) {
         commandLine("yarn", "audit", "fix")
         commandLine("yarn", "install")
     }
+}
+
+tasks.getByName<Jar>("jar") {
+    enabled = false
 }
 
 tasks.withType<KotlinCompile> {
