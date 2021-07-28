@@ -13,10 +13,15 @@ class WebController {
     @Autowired
     var env: Environment? = null
 
-    @GetMapping("/profile")
+    @GetMapping("api/v1/profile")
     fun getProfile(): String {
         return Arrays.stream(env!!.activeProfiles)
             .findFirst()
             .orElse("")
+    }
+
+    @GetMapping("api/v1/health")
+    fun getHealth(): String {
+        return "UP"
     }
 }

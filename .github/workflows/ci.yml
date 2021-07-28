@@ -33,4 +33,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: cd ${{ secrets.PATH }} && ./depoly-dev.sh
+          script: cd ${{ secrets.PATH }} && ./depoly-dev1.sh

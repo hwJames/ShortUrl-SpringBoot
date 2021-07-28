@@ -14,7 +14,7 @@ server:
 spring:
   config:
     activate:
-      on-profile: set1
+      on-profile: dev1
 
 ---
 server:
@@ -22,4 +22,20 @@ server:
 spring:
   config:
     activate:
-      on-profile: set2
+      on-profile: dev2
+
+---
+server:
+  port: 8092
+spring:
+  config:
+    activate:
+      on-profile: prod1
+
+---
+server:
+  port: 8093
+spring:
+  config:
+    activate:
+      on-profile: prod2
