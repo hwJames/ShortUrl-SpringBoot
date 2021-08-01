@@ -1,12 +1,10 @@
-# default
-server:
-  port: 8090
-
-#spring:
-#  data:
-#    mongodb:
-#      uri: mongodb://127.0.0.1:27017
-#      database: Study-SpringBoot
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: shorturl
+      password: 1234
 
 ---
 server:
