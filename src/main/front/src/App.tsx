@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
-import logo from './logo.svg';
+import ShortUrl from './shorturl.svg';
 import './App.css';
 
 const App = (): ReactElement => {
@@ -15,13 +15,10 @@ const App = (): ReactElement => {
 
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
+            <div className="Content">
+                <img src={ShortUrl} alt="ShortUrl" />
                 <h1 className="App-title">{message}</h1>
-            </header>
-            <p className="App-intro">
-                To get started, edit <code>src/App.js</code> and save to reload.
-            </p>
+            </div>
         </div>
     );
 };
