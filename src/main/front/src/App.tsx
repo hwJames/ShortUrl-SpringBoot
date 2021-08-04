@@ -1,27 +1,21 @@
-import React, { ReactElement, useEffect, useState } from 'react';
-import logo from './logo.svg';
+import React, { ReactElement } from 'react';
+import { Container, InputGroup, FormControl, Button } from 'react-bootstrap';
+import ShortUrl from './shorturl.svg';
 import './App.css';
 
 const App = (): ReactElement => {
-    const [message, setMessage] = useState('');
-
-    useEffect(() => {
-        fetch('/api/hello')
-            .then(response => response.text())
-            .then(message => {
-                setMessage(message);
-            });
-    }, []);
-
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <h1 className="App-title">{message}</h1>
-            </header>
-            <p className="App-intro">
-                To get started, edit <code>src/App.js</code> and save to reload.
-            </p>
+            <div className="Content">
+                <img src={ShortUrl} alt="ShortUrl" />
+
+                <Container style={{ marginTop: '30px' }}>
+                    <InputGroup className="mb-3" size="lg">
+                        <FormControl placeholder="단축할 URL를 입력해주세요 (ex: https://www.naver.com)" />
+                        <Button variant="outline-light">URL 생성</Button>
+                    </InputGroup>
+                </Container>
+            </div>
         </div>
     );
 };
