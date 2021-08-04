@@ -34,3 +34,5 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: cd ${{ secrets.PATH }} && ./depoly-dev.sh
+
+          # https://github.com/appleboy/ssh-action/issues/40
