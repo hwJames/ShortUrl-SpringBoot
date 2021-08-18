@@ -7,9 +7,9 @@ import java.net.URL
 class Url {
     fun check(_url: String): Boolean {
         try {
-            val connectionUrl = URL(_url);
+            val connectionUrl = URL(_url)
             val conn = connectionUrl.openConnection()
-            conn.connect();
+            conn.connect()
         } catch (error: Exception) {
             return false
         }
