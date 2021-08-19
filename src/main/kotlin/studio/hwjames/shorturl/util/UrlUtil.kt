@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component
 import java.net.URL
 
 @Component
-class Url {
+class UrlUtil {
     fun check(_url: String): Boolean {
         try {
             val connectionUrl = URL(_url)
