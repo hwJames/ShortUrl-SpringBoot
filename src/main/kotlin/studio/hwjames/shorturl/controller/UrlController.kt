@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*
 import studio.hwjames.shorturl.model.Url
 import studio.hwjames.shorturl.repository.UrlRepository
 import studio.hwjames.shorturl.service.SequenceGeneratorService
+import studio.hwjames.shorturl.util.Base62
+import java.time.LocalDateTime
 
 @RestController
 @RequestMapping("/api/v1/url")
@@ -18,26 +20,45 @@ class UrlController {
     @Autowired
     private lateinit var sgs: SequenceGeneratorService
 
-    @GetMapping("")
-    fun getAll(): ResponseEntity<List<Url>> {
-        val url = urlRepository.findAll()
-        return ResponseEntity.ok(url)
-    }
+    @Autowired
+    private lateinit var base62: Base62
 
     @GetMapping("/{shortUrl}")
-    fun getRedirectUrl(@PathVariable shortUrl: String): ResponseEntity<String> {
-        val url = urlRepository.findFirstById(shortUrl.toInt())
-            ?: return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("없는 URL 입니다.")
+    fun getRedirectUrl(@PathVariable shortUrl: String): HashMap<String, Any> {
+        val result = HashMap<String, Any>()
 
-        return ResponseEntity.ok(url.defaultUrl)
+        val url = urlRepository.findFirstById(base62.decoding(shortUrl))
+
+        url?.let {
+            val updateUrl = it
+            updateUrl.readDate = LocalDateTime.now()
+            updateUrl.readCnt = it.readCnt + 1
+
+            urlRepository.save(updateUrl)
+
+            result["statusCode"] = 200
+            result["message"] = "성공"
+            result["data"] = url.defaultUrl
+        } ?: run {
+            result["statusCode"] = 204
+            result["message"] = "찾을 수 없는 URL 입니다."
+        }
+
+        return result
     }
 
     @PostMapping("")
-    fun saveUrl(): ResponseEntity<String> {
-        val url = Url(sgs.getSequenceNumber("urls_sequence"), "www.naver.com")
-        urlRepository.save(url)
+    fun saveUrl(): HashMap<String, Any> {
+        val url = urlRepository.save(Url(sgs.getSequenceNumber("urls_sequence"), "www.naver.com"))
 
-        return ResponseEntity.ok("success")
+        val result = HashMap<String, Any>()
+        result["statusCode"] = 200
+        result["message"] = "성공"
+        result["data"] = HashMap<String, Any>().apply {
+            this["shortUrl"] = base62.encoding(url.id)
+            this["defaultUrl"] = url.defaultUrl
+        }
+
+        return result
     }
 }

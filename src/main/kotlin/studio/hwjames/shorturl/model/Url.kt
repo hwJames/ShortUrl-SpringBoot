@@ -12,5 +12,6 @@ data class Url(
     val defaultUrl: String,
 
     val createDate: LocalDateTime = LocalDateTime.now(),
-    val updateDate: LocalDateTime = LocalDateTime.now()
+    var readDate: LocalDateTime? = null,
+    var readCnt: Int = 0
 )
