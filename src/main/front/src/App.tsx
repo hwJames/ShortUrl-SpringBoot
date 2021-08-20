@@ -21,7 +21,7 @@ const App = (): ReactElement => {
 
     const createUrl = useCallback(() => {
         axios
-            .post('http://localhost:8090/api/v1/url', {
+            .post(`${process.env.REACT_APP_BASE_URL}/api/v1/url`, {
                 url,
             })
             .then(response => {
@@ -31,7 +31,9 @@ const App = (): ReactElement => {
                     setError(message);
                 } else {
                     setIsSuccess(true);
-                    setUrl(window.location.href + data.shortUrl);
+                    setUrl(
+                        `${process.env.REACT_APP_BASE_URL}/${data.shortUrl}`,
+                    );
                 }
             })
             .catch(() => setError('오류'));
