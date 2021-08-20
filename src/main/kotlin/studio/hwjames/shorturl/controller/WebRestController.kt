@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
-
 @RestController
 @RequestMapping("/api/v1")
-class WebController {
+class WebRestController {
 
     @Autowired
     var env: Environment? = null
