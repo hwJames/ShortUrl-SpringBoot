@@ -1,5 +1,11 @@
 import React, { ReactElement, useState, useCallback } from 'react';
-import { Container, InputGroup, FormControl, Button } from 'react-bootstrap';
+import {
+    Container,
+    InputGroup,
+    FormControl,
+    Button,
+    Spinner,
+} from 'react-bootstrap';
 import axios from 'axios';
 import ShortUrl from './shorturl.svg';
 import './App.css';
@@ -8,6 +14,7 @@ const App = (): ReactElement => {
     const [url, setUrl] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const urlFormOnChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,6 +27,7 @@ const App = (): ReactElement => {
     );
 
     const createUrl = useCallback(() => {
+        setLoading(true);
         axios
             .post(`${process.env.REACT_APP_BASE_URL}/api/v1/url`, {
                 url,
@@ -36,7 +44,10 @@ const App = (): ReactElement => {
                     );
                 }
             })
-            .catch(() => setError('오류'));
+            .catch(() => setError('오류'))
+            .finally(() => {
+                setLoading(false);
+            });
     }, [url]);
 
     const copyUrl = useCallback(() => {
@@ -66,6 +77,14 @@ const App = (): ReactElement => {
                         )}
                     </InputGroup>
                 </Container>
+
+                {loading && (
+                    <div className="Loading">
+                        <Spinner animation="border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    </div>
+                )}
             </div>
         </div>
     );
